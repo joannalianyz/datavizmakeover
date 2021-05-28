@@ -136,7 +136,7 @@ The transformed dataset is shown below:
 
 This dataset is then uploaded into Tableau.
 
-We will now create our visualisations consisting of a bar chart, a line graph and a faceted line graph which we will combine together to form a static dashboard which will be our final visualisation.
+We will now create our visualisations consisting of a bar chart, a line graph and a faceted line graph which we will combine together to form a storyboard which will be our final visualisation.
 
 ## 4.1 Bar Chart
 
@@ -198,7 +198,7 @@ We now create a faceted line graph to observe the trend of imports and exports i
 
 ![](welcome_files/IMG/IMG13.png)
 
-2.	Using the same steps as we did before, We amend the Y-axis labels accordingly, update the title/subtitle and we add in a caption to indicate the data source as well.
+2.	Using the same steps as we did before, We amend the Y-axis labels to **Exports(SGD)** and **Imports(SGD)** accordingly, update the title/subtitle and we add in a caption to indicate the data source as well.
 
 ![](welcome_files/IMG/IMG14.png)
 
