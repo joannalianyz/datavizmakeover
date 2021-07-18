@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # 1. Critique of the Visualisation
 
-This is the original visualisation.
+These are the original visualisations.
 
 ![](dataviz-makeover-3_files/IMG/OG1.PNG)
 ![](dataviz-makeover-3_files/IMG/OG2.PNG)
@@ -31,7 +31,7 @@ This is the original visualisation.
 
 2.	For the second visualisation, a bar chart is used to illustrate the average number of cumulative positive cases per sub-district by city as of 30th June 2021. It is not advised to use bar charts to display average/mean values. We explain further.  
 
-    A mean value is computed via a process that is symmetric, i.e., its is influenced to the same degree by values that are located at equal distances above and below the mean. When a mean is depicted in a bar graph, however, that depiction is asymmetric. The mean itself is represented by the farthest edge of a bar that originates from one particular axis, most typically below the mean. This may lead people who view bar charts to reflexively prioritize regions within the bars over equivalent regions outside the bars. This is statistically incorrect.  
+    A mean value is computed via a process that is symmetric, i.e. its is influenced to the same degree by values that are located at equal distances above and below the mean. When a mean is depicted in a bar graph, however, that depiction is asymmetric. The mean itself is represented by the farthest edge of a bar that originates from one particular axis, most typically below the mean. This may lead people who view bar charts to reflexively prioritize regions within the bars over equivalent regions outside the bars. This is statistically incorrect.  
 
     Adding error bars onto the bar chart will help to mitigate this problem.  
 
@@ -60,30 +60,28 @@ The proposed design is as follows:
 
 1. We will introduce new measures - mortality rate and other statistical measures needed to construct confidence intervals.  
 
-2. We utilise 2 charts - a funnel plot and a bar chart with error bars to convey the necessary information. These 2 types of visualisations will help to mitigate the
+2. We utilise 2 charts - a funnel plot and a bar chart with error bars to convey the necessary information. 
 
     + The funnel plot will provide information about the mortality rate among the positive cases by district and it will also allow us to investigate if the results were significant or not. In statistics, we usually classify something is significant if the result we obtain is further than 2 standard deviations from the mean. That is if the data falls outside of 95% what we expect the value should be, then we draw attention to it. More details on how we construct our funnel plot will be provided later on.
     
     + The bar chart with error bars will provide information on the number of cumulative positive cases per sub-district by city as of 30th June 2021 and account for the uncertainty which is encountered when dealing with averages/means.
 
-3. We will include a title in our proposed visualisation to make the intent of our visualisation clear.
+3. We will include a relevant title in our proposed visualisation to make the intent of our visualisation clear.
 
 4. We will standardise the language present in the visualisations to English for easy comprehension by viewers. 
-
-4. For clarity, we will include units on both the X-axis and Y-axis as and when necessary..
 
 
 ## 2.2 Aesthetic
 
-1. Our bubble plot will have a reduced opacity to ensure that overlapping bubbles can still be seen.
+1. We will utilise interactive tooltips to indicate clear labels for all necessary points. Tooltips is an efficient way to convey information about any point without causing the visualisation to look busy and cluttered.
 
-2. We will use a simple white background for both the bubble plot and line graph to help contrast against any other colour on the both charts.
+2. We will use only English in the visualisation for standardization.
 
-3. We will include tick marks on our axes and ensure that our charts are clearly inked.
+3. As we will be introducing additional new measures, we will include a legend in the visualisation as and when necessary.
 
 # 3.0 Proposed Visualisation
 
-Please view the proposed visualisation on Tableau Public [here.]
+Please view the proposed visualisation on Tableau Public [here.](https://public.tableau.com/app/profile/joanna.lian/viz/Dataviz3_16266183796800/Story1)
 
 # 4.0 Step-by-step Guide
 We will provide a step-by-step guide on how to create our proposed alternative  data visualisation.
@@ -166,7 +164,15 @@ This increment is very important. The number “1000” helps to make the upper 
     
 * Standard Error
     
-![](dataviz-makeover-3_files/IMG/SE.PNG)    
+![](dataviz-makeover-3_files/IMG/SE.PNG)
+
+* Z_95
+    
+![](dataviz-makeover-3_files/IMG/z95.PNG)   
+
+* Z_99
+    
+![](dataviz-makeover-3_files/IMG/z99.PNG)   
     
 * Lower Limit 95%
     
@@ -192,63 +198,70 @@ This increment is very important. The number “1000” helps to make the upper 
 
 ![](dataviz-makeover-3_files/IMG/aggden.PNG)
 
-2. Drag **Prop** and **Measure Values** to the rows. Make them a dual-axis, and make sure to synchronise the axis.
+3. Drag **Prop** and **Measure Values** to the rows. Make them a dual-axis, and make sure to synchronise the axis.
 
 ![](dataviz-makeover-3_files/IMG/dualaxis.PNG)
 ![](dataviz-makeover-3_files/IMG/dualaxis2.png)
 ![](dataviz-makeover-3_files/IMG/synchaxis.png)
 
-3. For the measure values, we will keep only **Lower Limit 95%**, **Lower Limit 99%**, *Upper Limit 95%**, **Upper Limit 99%** and **Mean value**.
+
+4. For the measure values, we will keep only **Lower Limit 95%**, **Lower Limit 99%**, **Upper Limit 95%**, **Upper Limit 99%** and **Mean value**.
 
 ![](dataviz-makeover-3_files/IMG/measureval.PNG)
 
-4. Convert the measure values into a line, and convert **Prop** into a circle mark.
+5. Convert **Prop** into a circle mark and convert the **Measure Values** into a line.
 
 ![](dataviz-makeover-3_files/IMG/shape.PNG)
 
-
-5. Drag **Significance** to the colour tab for **Prop**.
+6. Drag **Significance** to the colour tab for **Prop**.
 
 ![](dataviz-makeover-3_files/IMG/colour.PNG)
 
-6. Add **District Name** to the details tab for both **Prop** and the measure values. 
+7. Add **District Name** to the details tab for both **Prop** and the **Measure Values**. 
 
 ![](dataviz-makeover-3_files/IMG/disprop.PNG)
 ![](dataviz-makeover-3_files/IMG/dismv.PNG)
 
-7. Compute all measure values along the **District Name**.
+8. Compute all measure values along the **District Name**.
 
 ![](dataviz-makeover-3_files/IMG/DN.png)
 
-    This is the visualisation we get after computing measure values along **District Name**.
+This is the visualisation we get after computing measure values along **District Name**.
     
 ![](dataviz-makeover-3_files/IMG/c1.PNG)
 
-8. Drag **District Name** to the detail tab of **Prop** and also drag **Denominator** to the tooltip tab of **Prop**.
+9. Drag **District Name** to the detail tab of **Prop** and also drag **Denominator** to the tooltip tab of **Prop**.
 
 ![](dataviz-makeover-3_files/IMG/sumdea.PNG)
 
-9. Drag **Measure Names** to the color tab of **Measure Values** and drag **Deaths** to the detail tab.
+10. Drag **Measure Names** to the color tab of **Measure Values** and drag **Deaths** to the detail tab.
 
 ![](dataviz-makeover-3_files/IMG/meacol.PNG)
 
-    This is the visualisation we obtain.
+This is the visualisation we obtain.
     
 ![](dataviz-makeover-3_files/IMG/P1.PNG)
 
-10. Now, we edit the tooltips under **Prop**. There will be no tooltips for the meausre values, i.e. the lower and upper limits of the 95% and 99% confidence intervals.
+11. Now, we edit the tooltips under **Prop**. There will be no tooltips for the meausre values, i.e. the lower and upper limits of the 95% and 99% confidence intervals.
 
 ![](dataviz-makeover-3_files/IMG/TT.PNG)
 
-11. We edit the title of the X- axis to **No. of positive COVID cases**, amend the title of the left Y-axis to **Mortality rate (%)**, convert the right Y-axis to a percentage format.
+12. We edit the title of the X- axis to **No. of positive COVID cases**, amend the title of the left Y-axis to **Mortality rate (%)**, convert the right Y-axis to a percentage format.
 
 ![](dataviz-makeover-3_files/IMG/Haxis.PNG)
 ![](dataviz-makeover-3_files/IMG/Yaxis.PNG)
 ![](dataviz-makeover-3_files/IMG/perc.png)
 
-12. Last but not leastl we edit the title of the funnel plot to **COVID Mortality Rate (Jarkata) Funnel Plot**.
+13. Now, we edit the title of the funnel plot to **COVID Mortality Rate (Jarkata) Funnel Plot**. We also include a legend for the measure values in the visualisation.
 
 ![](dataviz-makeover-3_files/IMG/title.PNG)
+
+14. Last but not least, we exclude the two data points on the far right of the funnel plot as they represent data for Jakarta as a whole. We are only interested in looking at data on a district level for the purpose of this visualisation.
+
+![](dataviz-makeover-3_files/IMG/apoints.PNG)
+![](dataviz-makeover-3_files/IMG/exclude.png)
+
+We now have this final visualisation.
 
 ![](dataviz-makeover-3_files/IMG/FP.PNG)
 
@@ -288,11 +301,11 @@ This increment is very important. The number “1000” helps to make the upper 
 
 ![](dataviz-makeover-3_files/IMG/bl.PNG)
 
-2.	Drag **City Names** to the Rows.
+2.	Drag **City Names** to **Rows**.
 
 ![](dataviz-makeover-3_files/IMG/CN.PNG)
 
-3.	Drag **Positives** to the columns and take the average. Also, drag the **Measure Values** to the columns. Similar to before, we construct a dual axis and synchronise the axis.  
+3.	Drag **Positives** to **Columns** and take the average. Also, drag the **Measure Values** to **Columns**. Similar to before, we construct a dual axis and synchronise the axis.  
 
 ![](dataviz-makeover-3_files/IMG/same.PNG)  
 
@@ -306,7 +319,7 @@ We only keep the below 4 measure values.
 
 5. Now, we create the error bars.  
 
-* Drag **Lower bar 95_Positives**, **Upper bar 95_Positives**, **Lower bar 99_Positives** and **Upper bar 99_Positives**to the detail tab on the **Measure Values** card.  
+* Drag **Lower bar 95_Positives**, **Upper bar 95_Positives**, **Lower bar 99_Positives** and **Upper bar 99_Positives** to the detail tab on the **Measure Values** card.  
 
 ![](dataviz-makeover-3_files/IMG/4bars.PNG)  
 
@@ -316,14 +329,14 @@ We only keep the below 4 measure values.
 
 * In the Add Reference Line, Band, or Box dialog, do the following and click OK:
     
-+ Select Band.  
-  + For Scope, select Per Cell.  
-  + For Band From in the Value dropdown, select AGG(Lower bar 95_Positives).  
-  + For Band From in the Label dropdown, select None.
-  + For Band To in the Value dropdown, select AGG(Upper bar 95_Positives).  
-  + For Band To in the Label dropdown, select None. 
-  + For Formatting in the Line dropdown, select None.  
-  + For Formatting in the Fill dropdown, select None.    
+    + Select **Band**.  
+    + For Scope, select **Per Cell**.  
+    + For Band From in the Value dropdown, select *8AGG(Lower bar 95_Positives)**.
+    + For Band From in the Label dropdown, select **None**.
+    + For Band To in the Value dropdown, select **AGG(Upper bar 95_Positives)**.  
+    + For Band To in the Label dropdown, select **None**. 
+    + For Formatting in the Line dropdown, select **None**.  
+    + For Formatting in the Fill dropdown, select **None**.    
     
 ![](dataviz-makeover-3_files/IMG/95rl.PNG)
 
@@ -331,7 +344,7 @@ We repeat the same process but with Lower bar 99_Positives as the Band From valu
 
 ![](dataviz-makeover-3_files/IMG/99rl.PNG)
 
-6. Drag **City** to Filters and select only the cities as per below image.
+6. Drag **City** to **Filters** and select only the cities as per below image.
 
 ![](dataviz-makeover-3_files/IMG/filtercity.PNG)
 
@@ -339,7 +352,7 @@ We repeat the same process but with Lower bar 99_Positives as the Band From valu
 
 ![](dataviz-makeover-3_files/IMG/mvdets.PNG)
 
-8. Drag **Measure Names** to both the colour tab of the **Positives** card
+8. Drag **Measure Names** to both the colour tab and the detail tab of the **Positives** card
 
 ![](dataviz-makeover-3_files/IMG/mvcol.PNG)
 
@@ -360,17 +373,39 @@ We repeat the same process but with Lower bar 99_Positives as the Band From valu
 
 ## 4.3 Dashboard
 
-We create an animated and interactive dashboard which combines the bubble plot and the line graph which we have created.
+We create an animated and interactive dashboard which combines the funnel plot and the error bar plot which we have created.
 
+![](dataviz-makeover-3_files/IMG/dashboard.PNG)
 
 ## 4.4 Story
 
 As a final step, we create a story on Tableau using the dashboard that we have created. We drag the dashboard that we have created to the story and add in an appropriate title and caption.
 
+![](dataviz-makeover-3_files/IMG/story1.PNG)
+![](dataviz-makeover-3_files/IMG/story2.PNG)
 
 # 5.0 Three Major Observations
 
+1. Including the mortality rate measure has given us additional insight into the covid-19 situation in the different districts.
 
+    Just by looking at the top 3 districts, we can see how Johar Baru has a lower number of covid cases but a higher mortality rate than Kali Deres and Duren Sawit. It will be worthwhile to deep-dive as to why this is so - could it be that Johar Baru has a higher proportion of elderly and possibly a lower rate of vaccinations as compared to the other districts?
+    
+![](dataviz-makeover-3_files/IMG/no1.png)
+![](dataviz-makeover-3_files/IMG/no2.png)
+![](dataviz-makeover-3_files/IMG/no3.png)
+
+2. Looking at the error barplot has made it clear how important it is to factor in uncertainty into this particular visualisation. For the healthcare sector, this has far-reaching implications on the capacity/occupancy rate in hospitals. 
+
+In the case of Jakarta Utara, this uncertainty has an impact on hundreds of positive cases. An additional 500 to 800 cases could easily overwhelm public healthcare facilities and it is crucial to plan ahead for these dire situations.
+
+![](dataviz-makeover-3_files/IMG/JU.png)
+
+3. We note that there are some anomalous districts with very few cases and a low mortality rate. 
+
+    While this might be a good sign, it is important to deep-dive and understand why these districts have such good results. Although these results could be the result of good social distancing practices and stellar hygiene standards, these good results could also be the result of under-testing and/or under-reporting which are both undesirable practices.
+
+![](dataviz-makeover-3_files/IMG/low.png)
+![](dataviz-makeover-3_files/IMG/low2.png)
 
 
 
