@@ -1,0 +1,376 @@
+---
+title: "Dataviz Makeover 3"
+description: |
+  Explore different perspectives and approaches to design more truthful and enlightening data visualisation,
+author:
+  - name: Joanna Lian
+    url: https://example.com/norajones
+date: 07-03-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# 1. Critique of the Visualisation
+
+This is the original visualisation.
+
+![](dataviz-makeover-3_files/IMG/OG1.PNG)
+![](dataviz-makeover-3_files/IMG/OG2.PNG)
+
+## 1.1 Clarity
+
+1.	For the first visualisation, the title indicates that the chart will display information about the top 5 districts with the highest number of cumuative deaths as of 30th June 2021. However, the visualisation has points indicated for the number of deaths for all districts. Futhermore, labels are available only for the top 3 districts with the highest number of deaths,  
+
+    In summary, the title of the visualisation is not aligned with the actual visualisation.  
+
+2.	For the second visualisation, a bar chart is used to illustrate the average number of cumulative positive cases per sub-district by city as of 30th June 2021. It is not advised to use bar charts to display average/mean values. We explain further.  
+
+    A mean value is computed via a process that is symmetric, i.e., its is influenced to the same degree by values that are located at equal distances above and below the mean. When a mean is depicted in a bar graph, however, that depiction is asymmetric. The mean itself is represented by the farthest edge of a bar that originates from one particular axis, most typically below the mean. This may lead people who view bar charts to reflexively prioritize regions within the bars over equivalent regions outside the bars. This is statistically incorrect.  
+
+    Adding error bars onto the bar chart will help to mitigate this problem.  
+
+3.	These 2 visualisations separately show us information about the number of deaths and the number of positive cases. However, the visualisations do not provide any information on the mortality rate amongst the number of individuals who test positive for COVID. Mortality rate is an important statistic that should not be neglected. District A with a lower number of positive cases may not be better off than District B with a higher number of positive cases as District A might have a higher mortality rate among their positive cases.  
+
+    Hence, in order to get a more holistic understanding of the COVID situation in each district, we will be introducing a new measure - mortality rate in our proposed visualisation.  
+
+4. As with all surveys, there is a certain level of uncertainty. However, dot plots and bar charts do not acount for uncertainty. To deal with this uncertainty, we will utilise bar charts with error bars (as mentioned above) and a funnel plot.  
+
+    A funnel plot is a scatterplot of treatment effect against a measure of study precision. It is used primarily as a visual aid for detecting bias or systematic heterogeneity. A symmetric inverted funnel shape arises from a ‘well-behaved’ data set, in which bias is unlikely. An asymmetric funnel indicates a relationship between treatment effect estimate and study precision. This suggests the possibility of either bias or a systematic difference between studies of higher and lower precision (typically ‘small study effects’). Asymmetry can also arise from use of an inappropriate effect measure. Whatever the cause, an asymmetric funnel plot suggests that there needs to be investigation of possible causes.  
+
+## 1.2 Aesthetic
+
+1.	For the dotplot in the first visualisation, there are so many labels on the Y-axis that it is difficult that the plot looks cluttered and it is difficult to determine at a glance which point is representative of which district.  
+
+2.	As briefly mentioned earlier on, for the first visualisation, only the dots for the top 3 districts with the highest number of deaths have labels. Aesthetically, this is inconsistent.
+
+3.	While the titles and the X-axis labels are in English for both visualisations, the Y-axis label is in Bahasa Indonesian. This will confuse viewers.
+
+# 2.0 Alternative Design
+
+The proposed design is as follows:  
+
+
+## 2.1 Clarity
+
+1. We will introduce new measures - mortality rate and other statistical measures needed to construct confidence intervals.  
+
+2. We utilise 2 charts - a funnel plot and a bar chart with error bars to convey the necessary information. These 2 types of visualisations will help to mitigate the
+
+    + The funnel plot will provide information about the mortality rate among the positive cases by district and it will also allow us to investigate if the results were significant or not. In statistics, we usually classify something is significant if the result we obtain is further than 2 standard deviations from the mean. That is if the data falls outside of 95% what we expect the value should be, then we draw attention to it. More details on how we construct our funnel plot will be provided later on.
+    
+    + The bar chart with error bars will provide information on the number of cumulative positive cases per sub-district by city as of 30th June 2021 and account for the uncertainty which is encountered when dealing with averages/means.
+
+3. We will include a title in our proposed visualisation to make the intent of our visualisation clear.
+
+4. We will standardise the language present in the visualisations to English for easy comprehension by viewers. 
+
+4. For clarity, we will include units on both the X-axis and Y-axis as and when necessary..
+
+
+## 2.2 Aesthetic
+
+1. Our bubble plot will have a reduced opacity to ensure that overlapping bubbles can still be seen.
+
+2. We will use a simple white background for both the bubble plot and line graph to help contrast against any other colour on the both charts.
+
+3. We will include tick marks on our axes and ensure that our charts are clearly inked.
+
+# 3.0 Proposed Visualisation
+
+Please view the proposed visualisation on Tableau Public [here.]
+
+# 4.0 Step-by-step Guide
+We will provide a step-by-step guide on how to create our proposed alternative  data visualisation.
+
+**Data Sources**
+
+The datasets used for this data visualisation were extracted from [from Open Data Covid-19 Provinsi DKI Jakarta.](https://riwayat-file-covid-19-dki-jakarta-jakartagis.hub.arcgis.com/).  
+
+For creating the data visualisation above, the file dated on [30 Juni 2021 Pukul 10.00](https://drive.google.com/file/d/1poga1-JipsMsaeOM6hIFELTKWA4F3ITe/view) is used.  
+
+**Data Preparation**
+
+Screenshots of the raw dataset are as shown below:
+
+![](dataviz-makeover-3_files/IMG/OGDATA1.PNG)
+![](dataviz-makeover-3_files/IMG/OGDATA2.PNG)
+
+It is noted that there are many columns with **N/A** values in the dataset. While these columns have a **Total** value in row 2, the absence of information in the subsequent rows mean that these columns will not provide useful information for our analysis later on.  
+
+Hence, we delete row 2 and columns E to Z. Hence, we have the below transformed datasets which we will upload onto Tableau.
+
+![](dataviz-makeover-3_files/IMG/TDATA!.PNG)
+![](dataviz-makeover-3_files/IMG/TDATA2.PNG)
+
+We will now create our visualisations.
+
+## 4.1 Funnel Plot
+
+1. Firstly, we create the required calculated fields.  
+
+![](dataviz-makeover-3_files/IMG/CF.png)  
+
+* Denominator:
+    
+![](dataviz-makeover-3_files/IMG/den.PNG)
+
+This will be the X-axis for our visualisation.  
+    
+* Max Denominator:
+    
+![](dataviz-makeover-3_files/IMG/maxden.PNG)
+    
+This is used to create padding for the upper and lower limits.  
+    
+* Min Denominator:
+
+![](dataviz-makeover-3_files/IMG/minden.PNG)
+
+This is used to create padding for the upper and lower limits.  
+    
+* Numerator:
+
+![](dataviz-makeover-3_files/IMG/num.PNG)
+
+* Max Numerator:
+    
+![](dataviz-makeover-3_files/IMG/maxnum.PNG)
+    
+* Min Numerator:  
+    
+![](dataviz-makeover-3_files/IMG/minnum.PNG)
+
+* Bin Increment:
+
+![](dataviz-makeover-3_files/IMG/BININ.PNG)
+
+This increment is very important. The number “1000” helps to make the upper and lower limits smooth.  
+    
+* Calculated bin: 
+    
+![](dataviz-makeover-3_files/IMG/CALBIN.PNG)
+    
+* Prop:
+    
+![](dataviz-makeover-3_files/IMG/PROP.PNG)
+
+* Mean value: 
+
+![](dataviz-makeover-3_files/IMG/MEAN.PNG)
+    
+* Standard Error
+    
+![](dataviz-makeover-3_files/IMG/SE.PNG)    
+    
+* Lower Limit 95%
+    
+![](dataviz-makeover-3_files/IMG/LL95.PNG)
+
+* Upper Limit 95%
+    
+![](dataviz-makeover-3_files/IMG/UL95.PNG)
+
+* Lower Limit 99%
+    
+![](dataviz-makeover-3_files/IMG/LL99.PNG)
+
+* Upper Limit 99%
+    
+![](dataviz-makeover-3_files/IMG/UL99.PNG)
+
+* Significance
+    
+![](dataviz-makeover-3_files/IMG/sig.PNG)
+
+2. Now, we start working on the visualisation. Drag **Denominator** to **Columns**. By default, the aggrgate is taken.  
+
+![](dataviz-makeover-3_files/IMG/aggden.PNG)
+
+2. Drag **Prop** and **Measure Values** to the rows. Make them a dual-axis, and make sure to synchronise the axis.
+
+![](dataviz-makeover-3_files/IMG/dualaxis.PNG)
+![](dataviz-makeover-3_files/IMG/dualaxis2.png)
+![](dataviz-makeover-3_files/IMG/synchaxis.png)
+
+3. For the measure values, we will keep only **Lower Limit 95%**, **Lower Limit 99%**, *Upper Limit 95%**, **Upper Limit 99%** and **Mean value**.
+
+![](dataviz-makeover-3_files/IMG/measureval.PNG)
+
+4. Convert the measure values into a line, and convert **Prop** into a circle mark.
+
+![](dataviz-makeover-3_files/IMG/shape.PNG)
+
+
+5. Drag **Significance** to the colour tab for **Prop**.
+
+![](dataviz-makeover-3_files/IMG/colour.PNG)
+
+6. Add **District Name** to the details tab for both **Prop** and the measure values. 
+
+![](dataviz-makeover-3_files/IMG/disprop.PNG)
+![](dataviz-makeover-3_files/IMG/dismv.PNG)
+
+7. Compute all measure values along the **District Name**.
+
+![](dataviz-makeover-3_files/IMG/DN.png)
+
+    This is the visualisation we get after computing measure values along **District Name**.
+    
+![](dataviz-makeover-3_files/IMG/c1.PNG)
+
+8. Drag **District Name** to the detail tab of **Prop** and also drag **Denominator** to the tooltip tab of **Prop**.
+
+![](dataviz-makeover-3_files/IMG/sumdea.PNG)
+
+9. Drag **Measure Names** to the color tab of **Measure Values** and drag **Deaths** to the detail tab.
+
+![](dataviz-makeover-3_files/IMG/meacol.PNG)
+
+    This is the visualisation we obtain.
+    
+![](dataviz-makeover-3_files/IMG/P1.PNG)
+
+10. Now, we edit the tooltips under **Prop**. There will be no tooltips for the meausre values, i.e. the lower and upper limits of the 95% and 99% confidence intervals.
+
+![](dataviz-makeover-3_files/IMG/TT.PNG)
+
+11. We edit the title of the X- axis to **No. of positive COVID cases**, amend the title of the left Y-axis to **Mortality rate (%)**, convert the right Y-axis to a percentage format.
+
+![](dataviz-makeover-3_files/IMG/Haxis.PNG)
+![](dataviz-makeover-3_files/IMG/Yaxis.PNG)
+![](dataviz-makeover-3_files/IMG/perc.png)
+
+12. Last but not leastl we edit the title of the funnel plot to **COVID Mortality Rate (Jarkata) Funnel Plot**.
+
+![](dataviz-makeover-3_files/IMG/title.PNG)
+
+![](dataviz-makeover-3_files/IMG/FP.PNG)
+
+## 4.2 Bar Chart with Error Bars
+ 
+1. Firstly, we create the required calculated fields.
+
+* SE_Positives
+
+![](dataviz-makeover-3_files/IMG/sep.PNG)
+
+* 95 CI_Positives
+
+![](dataviz-makeover-3_files/IMG/95ci.PNG)
+
+* 99 CI_Positives
+
+![](dataviz-makeover-3_files/IMG/99ci.PNG)
+
+* Lower bar 95_Positives
+
+![](dataviz-makeover-3_files/IMG/lb95.PNG)
+
+* Upper bar 95_Positives
+
+![](dataviz-makeover-3_files/IMG/UB95.PNG)
+
+* Lower bar 99_Positives
+
+![](dataviz-makeover-3_files/IMG/LB99.PNG)
+
+* Upper bar 99_Positives
+
+![](dataviz-makeover-3_files/IMG/UB99.PNG)
+
+* Bar length
+
+![](dataviz-makeover-3_files/IMG/bl.PNG)
+
+2.	Drag **City Names** to the Rows.
+
+![](dataviz-makeover-3_files/IMG/CN.PNG)
+
+3.	Drag **Positives** to the columns and take the average. Also, drag the **Measure Values** to the columns. Similar to before, we construct a dual axis and synchronise the axis.  
+
+![](dataviz-makeover-3_files/IMG/same.PNG)  
+
+We only keep the below 4 measure values.
+
+![](dataviz-makeover-3_files/IMG/MV.PNG)
+
+4. On the **Positives** tab, we select bar chart.
+
+![](dataviz-makeover-3_files/IMG/barc.PNG)
+
+5. Now, we create the error bars.  
+
+* Drag **Lower bar 95_Positives**, **Upper bar 95_Positives**, **Lower bar 99_Positives** and **Upper bar 99_Positives**to the detail tab on the **Measure Values** card.  
+
+![](dataviz-makeover-3_files/IMG/4bars.PNG)  
+
+* Right-click the axis in the view and select Add Reference Line.
+
+![](dataviz-makeover-3_files/IMG/ARL.png)
+
+* In the Add Reference Line, Band, or Box dialog, do the following and click OK:
+    
++ Select Band.  
+  + For Scope, select Per Cell.  
+  + For Band From in the Value dropdown, select AGG(Lower bar 95_Positives).  
+  + For Band From in the Label dropdown, select None.
+  + For Band To in the Value dropdown, select AGG(Upper bar 95_Positives).  
+  + For Band To in the Label dropdown, select None. 
+  + For Formatting in the Line dropdown, select None.  
+  + For Formatting in the Fill dropdown, select None.    
+    
+![](dataviz-makeover-3_files/IMG/95rl.PNG)
+
+We repeat the same process but with Lower bar 99_Positives as the Band From value and Upper bar 99_Positives as the Band To value.
+
+![](dataviz-makeover-3_files/IMG/99rl.PNG)
+
+6. Drag **City** to Filters and select only the cities as per below image.
+
+![](dataviz-makeover-3_files/IMG/filtercity.PNG)
+
+7. Now, we drag **Measure Names** to both the colour tab and the path tab of the **Measure Values** card. Also, we choose to display our measure values as a line.
+
+![](dataviz-makeover-3_files/IMG/mvdets.PNG)
+
+8. Drag **Measure Names** to both the colour tab of the **Positives** card
+
+![](dataviz-makeover-3_files/IMG/mvcol.PNG)
+
+9. Modify the tooltips as below.
+
+![](dataviz-makeover-3_files/IMG/tooltippp.PNG)
+
+
+10. We edit the title of the axis and the title of the visualisation.  
+
+![](dataviz-makeover-3_files/IMG/EBPAXIS.PNG)
+
+![](dataviz-makeover-3_files/IMG/ebptitle.PNG)
+
+  This is our end product.
+
+![](dataviz-makeover-3_files/IMG/EBP.PNG)
+
+## 4.3 Dashboard
+
+We create an animated and interactive dashboard which combines the bubble plot and the line graph which we have created.
+
+
+## 4.4 Story
+
+As a final step, we create a story on Tableau using the dashboard that we have created. We drag the dashboard that we have created to the story and add in an appropriate title and caption.
+
+
+# 5.0 Three Major Observations
+
+
+
+
+
