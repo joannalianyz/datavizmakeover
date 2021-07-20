@@ -25,13 +25,13 @@ These are the original visualisations.
 
 ## 1.1 Clarity
 
-1.	For the first visualisation, the title indicates that the chart will display information about the top 5 districts with the highest number of cumuative deaths as of 30th June 2021. However, the visualisation has points indicated for the number of deaths for all districts. Futhermore, labels are available only for the top 3 districts with the highest number of deaths,  
+1.	For the first visualisation, the title indicates that the chart will display information about the top 5 districts with the highest number of cumuative deaths as of 30th June 2021. However, the visualisation has points indicated for the number of cumulative deaths for all districts. Futhermore, labels are available only for the top 3 districts with the highest number of cumulative deaths,  
 
     In summary, the title of the visualisation is not aligned with the actual visualisation.  
 
-2.	For the second visualisation, a bar chart is used to illustrate the average number of cumulative positive cases per sub-district by city as of 30th June 2021. It is not advised to use bar charts to display average/mean values. We explain further.  
+2.	For the second visualisation, a bar chart is used to illustrate the average number of cumulative positive cases per sub-district by city as of 30th June 2021. It is not advisable to use bar charts to display average/mean values. We explain further.  
 
-    A mean value is computed via a process that is symmetric, i.e. its is influenced to the same degree by values that are located at equal distances above and below the mean. When a mean is depicted in a bar graph, however, that depiction is asymmetric. The mean itself is represented by the farthest edge of a bar that originates from one particular axis, most typically below the mean. This may lead people who view bar charts to reflexively prioritize regions within the bars over equivalent regions outside the bars. This is statistically incorrect.  
+    A mean value is computed via a process that is symmetric, i.e. it is influenced to the same degree by values that are located at equal distances above and below the mean. When a mean is depicted in a bar graph, however, that depiction is asymmetric. The mean itself is represented by the farthest edge of the bar that originates from one particular axis, most typically below the mean. This may lead people who view bar charts to reflexively prioritize regions within the bars over equivalent regions outside the bars. This is statistically incorrect.  
 
     Adding error bars onto the bar chart will help to mitigate this problem.  
 
@@ -45,7 +45,7 @@ These are the original visualisations.
 
 ## 1.2 Aesthetic
 
-1.	For the dotplot in the first visualisation, there are so many labels on the Y-axis that it is difficult that the plot looks cluttered and it is difficult to determine at a glance which point is representative of which district.  
+1.	For the dotplot in the first visualisation, there are so many labels on the Y-axis that it is difficult to even see the individual labels. Furthermore, the plot looks cluttered and it is difficult to determine at a glance which point is representative of which district.  
 
 2.	As briefly mentioned earlier on, for the first visualisation, only the dots for the top 3 districts with the highest number of deaths have labels. Aesthetically, this is inconsistent.
 
@@ -55,6 +55,7 @@ These are the original visualisations.
 
 The proposed design is as follows:  
 
+![](dataviz-makeover-3_files/IMG/draw.jpeg)
 
 ## 2.1 Clarity
 
@@ -62,13 +63,11 @@ The proposed design is as follows:
 
 2. We utilise 2 charts - a funnel plot and a bar chart with error bars to convey the necessary information. 
 
-    + The funnel plot will provide information about the mortality rate among the positive cases by district and it will also allow us to investigate if the results were significant or not. In statistics, we usually classify something is significant if the result we obtain is further than 2 standard deviations from the mean. That is if the data falls outside of 95% what we expect the value should be, then we draw attention to it. More details on how we construct our funnel plot will be provided later on.
+    + The funnel plot will provide information about the mortality rate among the positive cases by district and it will also allow us to investigate if the results were significant or not. In statistics, we usually classify something is significant if the result we obtain is further than 2 standard deviations from the mean. That is if the data falls beyond 95% of what we expect the value should be, then we draw attention to it. More details on how we construct our funnel plot will be provided later on.
     
     + The bar chart with error bars will provide information on the number of cumulative positive cases per sub-district by city as of 30th June 2021 and account for the uncertainty which is encountered when dealing with averages/means.
 
 3. We will include a relevant title in our proposed visualisation to make the intent of our visualisation clear.
-
-4. We will standardise the language present in the visualisations to English for easy comprehension by viewers. 
 
 
 ## 2.2 Aesthetic
@@ -88,9 +87,9 @@ We will provide a step-by-step guide on how to create our proposed alternative  
 
 **Data Sources**
 
-The datasets used for this data visualisation were extracted from [from Open Data Covid-19 Provinsi DKI Jakarta.](https://riwayat-file-covid-19-dki-jakarta-jakartagis.hub.arcgis.com/).  
+The datasets used for this data visualisation were extracted from [Open Data Covid-19 Provinsi DKI Jakarta.](https://riwayat-file-covid-19-dki-jakarta-jakartagis.hub.arcgis.com/).  
 
-For creating the data visualisation above, the file dated on [30 Juni 2021 Pukul 10.00](https://drive.google.com/file/d/1poga1-JipsMsaeOM6hIFELTKWA4F3ITe/view) is used.  
+Specifically, the file dated on [30 Juni 2021 Pukul 10.00](https://drive.google.com/file/d/1poga1-JipsMsaeOM6hIFELTKWA4F3ITe/view) is used.  
 
 **Data Preparation**
 
@@ -101,7 +100,7 @@ Screenshots of the raw dataset are as shown below:
 
 It is noted that there are many columns with **N/A** values in the dataset. While these columns have a **Total** value in row 2, the absence of information in the subsequent rows mean that these columns will not provide useful information for our analysis later on.  
 
-Hence, we delete row 2 and columns E to Z. Hence, we have the below transformed datasets which we will upload onto Tableau.
+Hence, we delete row 2 and columns E to Z. We have the below transformed datasets which we will upload onto Tableau.
 
 ![](dataviz-makeover-3_files/IMG/TDATA!.PNG)
 ![](dataviz-makeover-3_files/IMG/TDATA2.PNG)
@@ -194,7 +193,7 @@ This increment is very important. The number “1000” helps to make the upper 
     
 ![](dataviz-makeover-3_files/IMG/sig.PNG)
 
-2. Now, we start working on the visualisation. Drag **Denominator** to **Columns**. By default, the aggrgate is taken.  
+2. Now, we start working on the visualisation. Drag **Denominator** to **Columns**. By default, the aggregate is taken.  
 
 ![](dataviz-makeover-3_files/IMG/aggden.PNG)
 
@@ -246,13 +245,13 @@ This is the visualisation we obtain.
 
 ![](dataviz-makeover-3_files/IMG/TT.PNG)
 
-12. We edit the title of the X- axis to **No. of positive COVID cases**, amend the title of the left Y-axis to **Mortality rate (%)**, convert the right Y-axis to a percentage format.
+12. We edit the label of the X- axis to **No. of positive COVID cases**, amend the label of the left Y-axis to **Mortality rate (%)**, and convert the right Y-axis to a percentage format.
 
 ![](dataviz-makeover-3_files/IMG/Haxis.PNG)
 ![](dataviz-makeover-3_files/IMG/Yaxis.PNG)
 ![](dataviz-makeover-3_files/IMG/perc.png)
 
-13. Now, we edit the title of the funnel plot to **COVID Mortality Rate (Jarkata) Funnel Plot**. We also include a legend for the measure values in the visualisation.
+13. Now, we edit the title of the funnel plot to **COVID Mortality Rate by District (Jakarta) Funnel Plot**. We also include a legend for the measure values in the visualisation.
 
 ![](dataviz-makeover-3_files/IMG/title.PNG)
 
@@ -301,7 +300,7 @@ We now have this final visualisation.
 
 ![](dataviz-makeover-3_files/IMG/bl.PNG)
 
-2.	Drag **City Names** to **Rows**.
+2.	Drag **City Name** to **Rows**.
 
 ![](dataviz-makeover-3_files/IMG/CN.PNG)
 
@@ -323,7 +322,7 @@ We only keep the below 4 measure values.
 
 ![](dataviz-makeover-3_files/IMG/4bars.PNG)  
 
-* Right-click the axis in the view and select Add Reference Line.
+* Right-click on the X-axis and select **Add Reference Line**.
 
 ![](dataviz-makeover-3_files/IMG/ARL.png)
 
@@ -331,7 +330,7 @@ We only keep the below 4 measure values.
     
     + Select **Band**.  
     + For Scope, select **Per Cell**.  
-    + For Band From in the Value dropdown, select *8AGG(Lower bar 95_Positives)**.
+    + For Band From in the Value dropdown, select **AGG(Lower bar 95_Positives)**.
     + For Band From in the Label dropdown, select **None**.
     + For Band To in the Value dropdown, select **AGG(Upper bar 95_Positives)**.  
     + For Band To in the Label dropdown, select **None**. 
@@ -340,7 +339,7 @@ We only keep the below 4 measure values.
     
 ![](dataviz-makeover-3_files/IMG/95rl.PNG)
 
-We repeat the same process but with Lower bar 99_Positives as the Band From value and Upper bar 99_Positives as the Band To value.
+We repeat the same process but with **Lower bar 99_Positives** as the Band From value and **Upper bar 99_Positives** as the Band To value.
 
 ![](dataviz-makeover-3_files/IMG/99rl.PNG)
 
@@ -352,7 +351,7 @@ We repeat the same process but with Lower bar 99_Positives as the Band From valu
 
 ![](dataviz-makeover-3_files/IMG/mvdets.PNG)
 
-8. Drag **Measure Names** to both the colour tab and the detail tab of the **Positives** card
+8. Drag **Measure Names** to both the colour tab and the detail tab of the **Positives** card.
 
 ![](dataviz-makeover-3_files/IMG/mvcol.PNG)
 
@@ -361,7 +360,7 @@ We repeat the same process but with Lower bar 99_Positives as the Band From valu
 ![](dataviz-makeover-3_files/IMG/tooltippp.PNG)
 
 
-10. We edit the title of the axis and the title of the visualisation.  
+10. We edit the label of the X-axis and the title of the visualisation.  
 
 ![](dataviz-makeover-3_files/IMG/EBPAXIS.PNG)
 
@@ -396,7 +395,7 @@ As a final step, we create a story on Tableau using the dashboard that we have c
 
 2. Looking at the error barplot has made it clear how important it is to factor in uncertainty into this particular visualisation. For the healthcare sector, this has far-reaching implications on the capacity/occupancy rate in hospitals. 
 
-In the case of Jakarta Utara, this uncertainty has an impact on hundreds of positive cases. An additional 500 to 800 cases could easily overwhelm public healthcare facilities and it is crucial to plan ahead for these dire situations.
+    In the case of Jakarta Utara, this uncertainty has an impact of hundreds of positive cases. An additional 500 to 800 cases could easily overwhelm public healthcare facilities and it is crucial to plan ahead for these dire situations.
 
 ![](dataviz-makeover-3_files/IMG/JU.png)
 
@@ -406,6 +405,3 @@ In the case of Jakarta Utara, this uncertainty has an impact on hundreds of posi
 
 ![](dataviz-makeover-3_files/IMG/low.png)
 ![](dataviz-makeover-3_files/IMG/low2.png)
-
-
-
